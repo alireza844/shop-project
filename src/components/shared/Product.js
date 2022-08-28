@@ -1,11 +1,15 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { Link } from 'react-router-dom'
 
 //Functions
-import { makeShorter } from '../../helpers/functions';
+import { makeShorter, isInCart, quantityCount } from '../../helpers/functions';
+
+//context
+import { CartContext } from '../../context/CardContextProvider'
 
 const Product = ({productData}) => {
 
+    const {state, dispatch} = useContext(CartContext)
     const { image, title, price, id } = productData
 
     return (
@@ -16,7 +20,13 @@ const Product = ({productData}) => {
             <div>
                 <Link to={`/products/${id}`}>Details</Link>
                 <div>
-                    <button>add to card</button>
+                    {quantityCount(state, productData.id) > 1 && <button onClick={() => dispatch({type: "DECREASE", payload: productData})}>-</button>}
+                    {quantityCount(state, productData.id) === 1 && <button onClick={() => dispatch({type: "REMOVE_ITEM", payload: productData})}>remove item</button>}
+                    {
+                    isInCart(state, productData.id)
+                        ? <button onClick={() => dispatch({type:"INCREASE", payload: productData})}>+</button>
+                        : <button onClick={() => dispatch({type:"ADD_ITEM", payload: productData})}>Add to cart</button>
+                    }
                 </div>
             </div>
         </div>

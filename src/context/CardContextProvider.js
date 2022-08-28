@@ -7,8 +7,9 @@ const initialState = {
     ckeckout: false,
 }
 
-const cardReducer = (state, action) => {
-    switch(action) {
+const CartReducer = (state, action) => {
+    console.log(state, action)
+    switch(action.type) {
         case "ADD_ITEM":
             if(!state.selectedItems.find(item => item.id === action.payload.id)) {
                 state.selectedItems.push({
@@ -32,9 +33,9 @@ const cardReducer = (state, action) => {
             return {
                 ...state,
             }
-        case "DESCREASE":
+        case "DECREASE":
             const indexD = state.selectedItems.findIndex(item => item.id === action.payload.id)
-            state.selectedItems[indexD].quantity++;
+            state.selectedItems[indexD].quantity--;
             return {
                 ...state,
             }
@@ -55,18 +56,18 @@ const cardReducer = (state, action) => {
     }
 }
 
-export const CardContext = createContext();
+export const CartContext = createContext();
 
 
-const CardContextProvider = ({children}) => {
+const CartContextProvider = ({children}) => {
 
-    const [state, dispatch] = useReducer(cardReducer, initialState)
+    const [state, dispatch] = useReducer(CartReducer, initialState)
 
     return (
-        <CardContext.Provider value={{state, dispatch}}>
+        <CartContext.Provider value={{state, dispatch}}>
             {children}
-        </CardContext.Provider>
+        </CartContext.Provider>
     );
 };
 
-export default CardContextProvider;
+export default CartContextProvider;

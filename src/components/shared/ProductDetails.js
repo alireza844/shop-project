@@ -2,7 +2,7 @@ import React, { useContext } from 'react';
 import { useParams, Link } from 'react-router-dom'
 
 //context
-import { ProductsContext } from '../context/ProductsContextProvider';
+import { ProductsContext } from '../../context/ProductsContextProvider';
 
 const ProductDetails = () => {
 

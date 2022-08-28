@@ -12,9 +12,6 @@ const Store = () => {
             {
                 products.map(product => <Product key={product.id} productData={product}/>)
             }
-            {
-                console.log(products[0])
-            }
         </div>
     );
 };
