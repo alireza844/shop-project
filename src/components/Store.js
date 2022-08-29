@@ -8,7 +8,7 @@ const Store = () => {
     const products = useContext(ProductsContext)
 
     return (
-        <div style={{display: "flex", gap: "50px", flexWrap: "wrap", justifyContent: "space-between", alignItems: "center"}}>
+        <div className="flex flex-wrap gap-16 justify-evenly">
             {
                 products.map(product => <Product key={product.id} productData={product}/>)
             }
